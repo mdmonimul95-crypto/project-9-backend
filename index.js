@@ -48,6 +48,31 @@ async function run() {
 
   res.send(products)
    })
+  //   app.patch('/details/:id', async(req, res) => {
+  //     const id = new ObjectId(req.params.id)
+  //     const updatedData = req.body
+  // const result =await productsCollection.insertOne(
+  //   {_id: new ObjectId(id)},
+  //   {$set:updatedData}
+  // )
+  // res.json(result)
+
+  // // res.send(products)
+  //  })
+  app.patch('/details/:id', async (req, res) => {
+
+  const id = req.params.id
+  const updatedData = req.body
+
+  const result = await productsCollection.updateOne(
+    { _id: new ObjectId(id) },
+    {
+      $set: updatedData
+    }
+  )
+
+  res.json(result)
+ })
     // Send a ping to confirm a successful connection
     await client.db("admin").command({ ping: 1 });
     console.log("Pinged your deployment. You successfully connected to MongoDB!");
