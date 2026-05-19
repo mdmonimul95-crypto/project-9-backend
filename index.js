@@ -8,7 +8,7 @@ var cors = require('cors')
 const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 dontenv.config()
 const uri = process.env.MONGODB_URI;
-const port = process.env.PORT  ;
+const port = process.env.PORT || 8000  ;
 
 app.use(cors())
 app.use(express.json())
@@ -71,6 +71,17 @@ async function run() {
     }
   )
 
+  res.json(result)
+ })
+  app.delete('/explore/:id', async (req, res) => {
+
+  const id = req.params.id
+  
+
+  const result = await productsCollection.deleteOne(
+    { _id: new ObjectId(id) },
+   
+  )
   res.json(result)
  })
     // Send a ping to confirm a successful connection
